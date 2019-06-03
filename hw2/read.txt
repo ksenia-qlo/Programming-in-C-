@@ -1,0 +1,11 @@
+I did not encounter significant difficulties.
+
+The way i did it is: I broke the program down by a 2 parts:
+
+- Counting how many many in 1 group (having same number of letters) are there
+ in a file.
+
+- Making a picture of count in 1 group with a number, space and
+  "*"-s. Each "*" represents 4000 or less words.
+
+I learnt that i need to allocate values to the array in C explicitly. That was a slight bumb for me, i could not figure out first why the output was very strange. It turned out that values get assugned randomly if you don't specify it in the code. Once i fixed that, the output was as expected.

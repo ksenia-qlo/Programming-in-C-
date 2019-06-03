@@ -1,0 +1,44 @@
+user31: Ksenia Khlopotina
+0. hw1 dir exists               20 pts:  20
+1. hello.c meets SG 9 rules     20 pts:  10
+  1-comments
+    a. top of file comment:
+      Project:
+      Name   :
+      Date   :
+      File   :
+      Notes  : what it does
+          COLONS NOT LINED UP
+          5 pts off
+    b. function comment
+          FUNCTION COMMENT ON MAIN - nicely done!
+          (move down after #include...)
+    c. inline comment
+  2-linelength
+          LINE EXCEEDS 80 CHARACTERS
+          (missing CR in func comment on main)
+          5 pts off
+  3-indent 2 spaces
+  4-headers
+  5-names
+  6-constants
+  7-global var
+  8-functions
+  9-bracket style
+    a. for function
+    b. for ctrl stmts
+2. hello works                  20 pts:  20
+  outputs "hello, world"
+3. readMe 3 lines               20 pts:  20
+4. hw1.pdf exists               20 pts:  20
+Ontime?               YES
+Total:                                   90 pts
+If you have any questions, please email me. JHD
+Your files:
+drwxrwxr-x. 2 user31 user31  4096 Feb  6 22:56 .
+drwx------. 5 user31 user31  4096 Feb  6 22:53 ..
+-rwxrwxr-x. 1 user31 user31 22744 Feb  6 22:56 hello
+-rw-rw-r--. 1 user31 user31   725 Feb  6 22:53 hello.c
+-rw-r--r--. 1 user31 user31 35635 Feb  3 20:09 hw1.pdf
+-rw-rw-r--. 1 user31 user31    34 Feb  3 15:11 readMe.txt
+

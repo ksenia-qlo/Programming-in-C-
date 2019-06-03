@@ -1,0 +1,109 @@
+user31: Ksenia
+0. hw3 dir and files exist      20 pts: 19
+    No readMe.txt found -1
+1. itox.c meets SG 9 rules      15 pts: 13
+  1-comments
+    a. top of file comment:
+      Project:
+      Name   :
+      Date   :
+      File   :
+      Notes  : what it does
+         Notes is not filled in -2
+    b. function comment
+    c. inline comment
+  2-linelength
+  3-indent 2 spaces
+  4-headers
+  5-names
+  6-constants
+  7-global var
+  8-functions
+  9-bracket style
+    a. for function
+    b. for ctrl stmts
+
+2. modules compile noW,noErr    15 pts: 15
+   I compiled your itox.c and itoxDriver.c.
+   Your driver and itox were late, but
+itox.c was ontime, so I gave you the 
+compile points.
+   This is itox.
+   I also tested your itoxKsenia, as submitted.
+   I also built itox5 using the 5 tests.
+
+3. itox works                   30 pts:  13
+When I run itox with or without test.txt, I 
+usually a single case with no output for quat or vig,
+but in one case I did get an output for vig:
+
+input decimal int: 2133923472
+quaternary representation:
+reconverted decimal : -2147483648
+vigesimal representation: D6H
+reconverted decimal : -2147483648
+
+With known inputs and my own driver, I get the input,
+but not any quat or vig output:
+
+Program itox is ready to run first test...
+input decimal int: 5
+quaternary representation:
+reconverted decimal : -2147483648
+vigesimal representation:
+reconverted decimal : -2147483648
+
+Program itox is ready to run second test ...
+input decimal int: 15
+quaternary representation:
+reconverted decimal : -2147483648
+vigesimal representation:
+reconverted decimal : -2147483648
+
+Program itox is ready to run third test...
+input decimal int: 515
+quaternary representation:
+reconverted decimal : -2147483648
+vigesimal representation:
+reconverted decimal : -2147483648
+...
+
+  a. loop gets inputs
+      Your wrote a loop while (!EOF)
+but it does not include the 9 lines,
+so they are executed once.           -5
+
+  b. quat is right/converts back
+      Your quat looks like good code,
+but does not give output.     -5
+      The conversion back does not
+give the input value.  The code overwrites
+the quaternaryStr array, which is not
+a good idea.  So this does not work yet -1
+  c. viges is right/converts back
+      Your viges usually does not gives 
+output, but on one occasion it did.   -5
+      It also does not convert back. -1
+
+4. readMe answers 3 q's         10 pts:  0
+5. library exists               10 pts:  0
+Ontime? LATE on itox and itoxDriver.c: Mar 5 23:05,
+              but due at 5pm
+     Your itox.c was not late and earned you the
+     points you got.
+Total:                                   60  pts
+If you have any questions, please email me. JHD
+
+Your files:
+drwxrwxr-x. 2 user31 user31  4096 Mar  5 23:05 .
+drwx------. 7 user31 user31  4096 Mar  5 23:05 ..
+-rw-rw-r--. 1 user31 user31   133 Mar  4 13:54 *Backtrace*
+-rwxrwxr-x. 1 user31 user31 82816 Mar  5 23:05 itox
+-rw-r--r--. 1 user31 user31  5873 Mar  5 16:19 itox.c
+-rw-r--r--. 1 user31 user31 12288 Mar  4 14:02 .itox.c.swp
+-rw-r--r--. 1 user31 user31  1140 Mar  5 23:05 itoxDriver.c
+-rw-r--r--. 1 user31 user31  1637 Mar  3 13:16 itox.h
+-rw-r--r--. 1 user31 user31    20 Mar  3 13:16 test.txt
+-rw-rw-r--. 1 user31 user31  5873 Mar  5 16:18 :wq!
+-rw-rw-r--. 1 user31 user31   133 Mar  3 15:07 y
+

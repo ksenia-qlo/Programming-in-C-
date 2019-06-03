@@ -1,0 +1,45 @@
+.
+..
+calc
+calc.h
+getch.c
+getop.c
+main.c
+Makefile
+score.txt
+stack.c
+-----
+make
+icc -Wall -c main.c
+icc -Wall -c -o getop.o getop.c
+icc -Wall -c -o stack.o stack.c
+icc -Wall -c -o getch.o getch.c
+icc -Wall -o calc main.o getop.o stack.o getch.o
+-----
+./clac
+The answer is 255
+The answer is 1279
+The answer is 0
+The answer is -32768
+The answer is 0
+The answer is 0
+The answer is 1
+The answer is 1
+The answer is 0
+The answer is 2
+The answer is 3
+The answer is 101
+-----
+-----
+10   1. (10 points)
+   (a) Existence of the directory /home/user??/hw7
+   (b) Inside hw7: calc.h, getch.c, getop.c, main.c, Makefile, stack.c
+   (c) Other files are allowed
+30   2. (30 points) Coding style in *.c and *.h files
+   (a) Adherence to the style guidelines
+   (b) Sensible pseudo code, variable names, comments, etc.
+   (c) make calc gives no warnings or errors
+60   3. (60 points) Correctness
+   ./calc < /home/ming/240/hw7/testPostfix.txt produces correct output
+
+100 Total

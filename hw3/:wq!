@@ -1,0 +1,239 @@
+/*
+ * functions that convert between int, quaternary, and vigesimal numbers
+ * 
+ * project: hw3
+ * name:    Ksenia Khlopotina
+ * date:    03/03/2019
+ * file:    itox.c
+ * notes:   		
+ */
+
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include "itox.h"
+#define QUART 4
+#define VIG 20
+
+/* function converts int n to a quaternary string in the
+   hexstring array */
+void itoq(char quaternaryStr[], int n)
+{
+  //decimal representation
+  int q = 0;
+  int r = 0;
+  int i;
+  
+  q = n / QUART;
+  r = n % QUART;
+  
+  //int v = sizeof(int) * 4 + 1;
+  //quaternaryStr[v] = { 0 };
+  if (r == 0)
+    quaternaryStr[sizeof(int) * 4 - 1] = '0';
+  if (r == 1)
+    quaternaryStr[sizeof(int) * 4 - 1] = '1';
+  if (r == 2)
+    quaternaryStr[sizeof(int) * 4 - 1] = '2';
+  if (r == 3)
+    quaternaryStr[sizeof(int) * 4 - 1] = '3';
+  
+  for (i = sizeof(int) * 4 - 2; i >= 0; i--) {
+    r = q % QUART;
+    if (r == 0) 
+      quaternaryStr[i] = '0';
+    if (r == 1)
+      quaternaryStr[i] = '1';
+    if (r == 2)
+      quaternaryStr[i] = '2';
+    if (r == 3)
+      quaternaryStr[i] = '3';
+    q = q / QUART;
+  }
+   quaternaryStr[sizeof(int) * QUART] = '\0';  
+}
+
+
+/* function converts a quaternary string to its int value  */
+int qtoi(char quaternaryStr[])
+{ 
+  int i = 0;
+  for (i = 0; i < sizeof(int) * 4; i++) {
+    if (quaternaryStr[i] == '0') 
+      quaternaryStr[i] = 0; 
+    if (quaternaryStr[i] == '1') 
+      quaternaryStr[i] = 1;
+    if (quaternaryStr[i] == '2') 
+      quaternaryStr[i] = 2;
+    if (quaternaryStr[i] == '3') 
+      quaternaryStr[i] = 3;  
+    if (quaternaryStr[i] == '\0')
+      break;
+  }   
+ 
+  int n = 0;
+  for (i = sizeof(int) * 4 - 1; i >= 0; i--) {  		
+    n += quaternaryStr[i] * pow(QUART, i);                     
+  }
+  return n;
+}
+
+/* function converts int n to a vigesimal string in the
+   hexstring array */
+
+void itov(char vigesimalStr[], int n)
+{  
+   int q = 0;
+   int r = 0;
+   int i;
+   
+   q = n / VIG;
+   r = n % VIG;
+   
+   //vigesimalStr[sizeof(int) * 2 + 1] = { };
+
+   if (r == 0)
+     vigesimalStr[sizeof(int) * 2 - 1] = '0';
+   if (r == 1)
+     vigesimalStr[sizeof(int) * 2 - 1] = '1';
+   if (r == 2)
+     vigesimalStr[sizeof(int) * 2 - 1] = '2';
+   if (r == 3)
+     vigesimalStr[sizeof(int) * 2 - 1] = '3';
+   if (r == 4)
+     vigesimalStr[sizeof(int) * 2 - 1] = '4';
+   if (r == 5)
+     vigesimalStr[sizeof(int) * 2 - 1] = '5';
+   if (r == 6)
+     vigesimalStr[sizeof(int) * 2 - 1] = '6';
+   if (r == 7)
+     vigesimalStr[sizeof(int) * 2 - 1] = '7';
+   if (r == 8)
+     vigesimalStr[sizeof(int) * 2 - 1] = '8';
+   if (r == 9)
+     vigesimalStr[sizeof(int) * 2 - 1] = '9';
+   if (r == 10)
+     vigesimalStr[sizeof(int) * 2 - 1] = 'A';
+   if (r == 11)
+     vigesimalStr[sizeof(int) * 2 - 1] = 'B';
+   if (r == 12)
+     vigesimalStr[sizeof(int) * 2 - 1] = 'C';
+   if (r == 13)
+     vigesimalStr[sizeof(int) * 2 - 1] = 'D';
+   if (r == 14)
+     vigesimalStr[sizeof(int) * 2 - 1] = 'E';
+   if (r == 15)
+     vigesimalStr[sizeof(int) * 2 - 1] = 'F';
+   if (r == 16)
+     vigesimalStr[sizeof(int) * 2 - 1] = 'G';
+   if (r == 17)
+     vigesimalStr[sizeof(int) * 2 - 1] = 'H';
+   if (r == 18)
+     vigesimalStr[sizeof(int) * 2 - 1] = 'I';
+   if (r == 19)
+     vigesimalStr[sizeof(int) * 2 - 1] = 'J';  
+  
+   for (i = sizeof(int) * 2 - 2; i >= 0; i--) {
+     r = q % VIG;
+     if (r == 0)
+       vigesimalStr[i] = '0';
+     if (r == 1)
+       vigesimalStr[i] = '1';
+     if (r == 2)
+       vigesimalStr[i] = '2';
+     if (r == 3)
+       vigesimalStr[i] = '3';
+     if (r == 4)
+       vigesimalStr[i] = '4';
+     if (r == 5)
+       vigesimalStr[i] = '5';
+     if (r == 6)
+       vigesimalStr[i] = '6';
+     if (r == 7)
+       vigesimalStr[i] = '7';
+     if (r == 8)
+       vigesimalStr[i] = '8';
+     if (r == 9)
+       vigesimalStr[i] = '9';
+     if (r == 10)
+       vigesimalStr[i] = 'A';
+     if (r == 11)
+       vigesimalStr[i] = 'B';
+     if (r == 12)
+       vigesimalStr[i] = 'C';
+     if (r == 13)
+       vigesimalStr[i] = 'D';
+     if (r == 14)
+       vigesimalStr[i] = 'E';
+     if (r == 15)
+       vigesimalStr[i] = 'F';
+     if (r == 16)
+       vigesimalStr[i] = 'G';
+     if (r == 17)
+       vigesimalStr[i] = 'H';
+     if (r == 18)
+       vigesimalStr[i] = 'I';
+     if (r == 19)
+       vigesimalStr[i] = 'J';
+     q = q / VIG;
+   }
+   vigesimalStr[sizeof(int) * 2] = '\0';
+}
+ 
+/* function converts a vigesimal string to its int value  */
+int vtoi(char vigesimalStr[])
+{ 
+  int i;
+  for (i = 0; i < sizeof(int) * 2; i++) {
+     if (vigesimalStr[i] == '0')
+       vigesimalStr[i] = 0;
+     if (vigesimalStr[i] == '1')
+       vigesimalStr[i] = 1;
+     if (vigesimalStr[i] == '2')
+       vigesimalStr[i] = 2;
+     if (vigesimalStr[i] == '3')
+       vigesimalStr[i] = 3;
+     if (vigesimalStr[i]== 4)
+       vigesimalStr[i] = '4';
+     if (vigesimalStr[i] == 5)
+       vigesimalStr[i] = '5';
+     if (vigesimalStr[i]== 6)
+       vigesimalStr[i] = '6';
+     if (vigesimalStr[i]== 7)
+       vigesimalStr[i] = '7';
+     if (vigesimalStr[i]== 8)
+       vigesimalStr[i] = '8';
+     if (vigesimalStr[i]== 9)
+       vigesimalStr[i] = '9';
+     if (vigesimalStr[i] == 10)
+       vigesimalStr[i] = 'A';
+     if (vigesimalStr[i] == 11)
+       vigesimalStr[i] = 'B';
+     if (vigesimalStr[i] == 12)
+       vigesimalStr[i] = 'C';
+     if (vigesimalStr[i] == 13)
+       vigesimalStr[i] = 'D';
+     if (vigesimalStr[i] == 14)
+       vigesimalStr[i] = 'E';
+     if (vigesimalStr[i] == 15)
+       vigesimalStr[i] = 'F';
+     if (vigesimalStr[i] == 16)
+       vigesimalStr[i] = 'G';
+     if (vigesimalStr[i] == 17)
+       vigesimalStr[i] = 'H';
+     if (vigesimalStr[i] == 18)
+       vigesimalStr[i] = 'I';
+     if (vigesimalStr[i] == 19)
+       vigesimalStr[i] = 'J';
+     if (vigesimalStr[i] == '\0')
+       break;
+   }
+ 
+   int n = 0;
+ 
+   for (i = sizeof(int) * 2 - 1; i >= 0; i--) {
+     n += vigesimalStr[i] * pow(VIG, i);
+   }
+   return n;
+}  
+ 

@@ -1,0 +1,293 @@
+user31: Ksenia Khlopotina
+
+******************************user31******************************
+
+
+			@@@@@@@ FILES IN DIRECTORY @@@@@@@
+
+total 48K
+-rwxrwxr-x. 1 user31 user31  23K Mar 21 17:41 adder
+-rw-r--r--. 1 user31 user31 1.3K Mar 21 17:41 adder.c
+-rw-r--r--. 1 user31 user31  431 Mar 21 17:16 adder.h
+-rw-r--r--. 1 user31 user31 1003 Mar 17 20:40 main.c
+-rw-r--r--. 1 user31 user31 1.2K Mar 18 00:51 myAdd.c
+-rw-rw-r--. 1 user31 user31  628 Mar 21 15:09 readMe.txt
+-rw-r--r--. 1 root   root    135 Mar 24 12:20 score_hw4
+
+			@@@@@@@ COMMAND OUTPUT @@@@@@@
+
+
+------------------------readme.txt------------------------
+
+
+Pseudocode:
+- For fulladder functions (2), i wrote out the result 
+of 1-s and 0-s for Sum and CarryOut.
+- make table of all possible combinations with 3
+numbers including CarryIn and what the operation is between
+first 2 numbers
+- decide what operation is between that result 
+and the 3d number, CarryIn.
+
+Discussion:
+I also had to come up with the procedure to retrieve a bit's value
+from a binary number, that was the most challenging part
+of the assignment for me.
+Other that that, the assignment was straighforward and each step
+expected was detailed in the assignment, which helped a lot with 
+the creation of functions.
+
+
+------------------------adder.h------------------------
+
+/*
+ * declarations
+ *
+ * project: hw4
+ * name: Ksenia Khlopotina 
+ * user31
+ * date: 03/11/2019 
+ * file: adder.h
+ */
+
+enum bits {ZERO, ONE};
+
+enum bits halfAdderSum(enum bits P, enum bits Q);
+enum bits halfAdderCarry(enum bits P, enum bits Q);
+
+enum bits fullAdderSum(enum bits P, enum bits Q, enum bits Cin);
+enum bits fullAdderCarry(enum bits P, enum bits Q, enum bits Cin);
+
+unsigned int myAdd(unsigned int p, unsigned int q);
+
+------------------------adder.c------------------------
+
+/*
+ * implement fullAdderSum() fullAdderCarry()
+ *
+ * project: hw4
+ * name: Ksenia Khlopotina 
+ * user31
+ * date: 03/11/2019
+ * file: adder.c
+ * pseudo code:
+ * notes:
+ */
+
+#include "adder.h"
+
+/*
+ * add two bits P and Q
+ * return the sum bit
+ */
+enum bits halfAdderSum(enum bits P, enum bits Q)
+{
+  return P ^ Q;
+}
+
+/*
+ * add two bits P and Q
+ * return the carry bit
+ */
+enum bits halfAdderCarry(enum bits P, enum bits Q)
+{
+  return P & Q;
+}
+
+/*
+ * add three bits P, Q, and Cin
+ * return the sum bit
+ */
+enum bits fullAdderSum(enum bits P, enum bits Q, enum bits Cin)
+{
+  enum bool {TRUE,FALSE};
+  if ((halfAdderSum(Q,P) && (halfAdderSum(P,Cin)== FALSE))
+      ||(halfAdderSum(Q,Cin) && (halfAdderSum(P,Cin)== FALSE))
+      ||(halfAdderSum(P,Cin) && (halfAdderSum(Q,Cin)== FALSE))
+      ||(halfAdderCarry(Q,P) && halfAdderCarry(P,Cin)))
+    return ONE;
+  else
+    return ZERO;
+}
+
+/*
+ * add three bits P, Q, and Cin
+ * return the carry bit
+ */
+enum bits fullAdderCarry(enum bits P, enum bits Q, enum bits Cin)
+{
+  enum bool {TRUE,FALSE};
+  if ((halfAdderCarry(P,Q) && (halfAdderSum(P,Cin)== FALSE))
+      ||(halfAdderCarry(Q,Cin) && (halfAdderSum(P,Cin)== FALSE))
+      ||(halfAdderCarry(P,Cin) && (halfAdderSum(Q,Cin)== FALSE))
+      ||(halfAdderCarry(Q,P) && halfAdderCarry(P,Cin)))
+     return ONE;
+  else
+     return ZERO;
+}
+
+------------------------main.c------------------------
+
+/*
+ * driver for testing the full adder and myAdd()
+ *
+ * project: hw4
+ * name:Ksenia Khlopotina 
+ * user31
+ * date: 03/11/2019
+ * file: main.c
+ * notes:
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "adder.h"
+
+/*
+ * This is the driver for testing your implementation
+ * Do not modify the code below
+ */
+int main(void)
+{
+  enum bits P, Q, Cin;
+  unsigned int p, q;
+
+  for (P = ZERO; P <= ONE; P++)
+    for (Q = ZERO; Q <= ONE; Q++)
+      printf("P %1u Q %1u C %1u S %1u\n",
+	     P, Q, halfAdderCarry(P, Q), halfAdderSum(P, Q));
+
+  for (P = ZERO; P <= ONE; P++)
+    for (Q = ZERO; Q <= ONE; Q++)
+      for (Cin = ZERO; Cin <= ONE; Cin++)
+	printf("P %1u Q %1u Cin %1u Cout %1u S %1u\n",
+	       P, Q, Cin, fullAdderCarry(P, Q, Cin), fullAdderSum(P, Q, Cin));
+
+  for (p = 0; p < 256; p++)
+    for (q = p; q < 256 - p; q++) {
+      printf("p %u q %u\n", p, q);
+      if (p + q != myAdd(p, q)) {
+	fprintf(stderr, "myAdd() fails when adding %u and %u\n", p, q);
+	exit(1);
+      }
+    }
+
+  return 0;
+}
+
+------------------------myAdd.c------------------------
+
+/*
+ * implement of myAdd() using fullAdderSum() and fullAdderCarry()
+ *
+ * project: hw4
+ * name: Ksenia Khlopotina 
+ * user31
+ * date:03/11/2019 
+ * file: myAdd.c
+ * pseudo code:
+ * notes:
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "adder.h"
+
+/*
+ * use fullAdderSum() and fullAdderCarry() to add two numbers bit by bit
+ * p and q are nonnegative
+ * assume their sum does not cause overflow of a 32-bit unsigned int
+ */
+unsigned int myAdd(unsigned int p, unsigned int q)
+{
+  enum bits Cin;
+  Cin = ZERO;
+  unsigned int mySum;
+  /*
+   * loop 32 times
+   * add a pair of bits from p and q, and the previous carry bit
+   * record the sum bit in the corresponding bit in mySum
+   * the first carry bit is zero
+   * the last carry bit is discarded, assuming no overflow
+   */
+   int i;
+   for (i = 0; i < 32; i++) {
+    //extract i-th bit from p,q;
+    enum bits pbit;
+    enum bits qbit;
+    enum bits sum;
+    enum bits carry;
+    enum bits mySumBit;
+    pbit = (p >> i) & 1;
+    qbit = (q >> i) & 1;
+    sum = fullAdderSum(pbit, qbit, Cin);
+    carry = fullAdderCarry(pbit, qbit, Cin);
+    mySumBit = (mySum & ~(1 << i)) | (sum << i) & (1 << i);
+    Cin = carry;
+   }
+   return mySum;
+}
+
+------------------------compile adder.c------------------------
+
+/usr/lib/gcc/x86_64-redhat-linux/4.8.5/../../../../lib64/crt1.o: In function `_start':
+(.text+0x20): undefined reference to `main'
+
+------------------------compile main.c------------------------
+
+/tmp/iccNCasPg.o: In function `main':
+main.c:(.text+0x3f): undefined reference to `halfAdderCarry'
+main.c:(.text+0x4c): undefined reference to `halfAdderSum'
+main.c:(.text+0x8e): undefined reference to `fullAdderCarry'
+main.c:(.text+0x9e): undefined reference to `fullAdderSum'
+main.c:(.text+0x109): undefined reference to `myAdd'
+
+------------------------compile myAdd,c------------------------
+
+
+------------------------myAdd output------------------------
+
+myAdd() fails when adding 0 and 1
+P 0 Q 0 C 0 S 0
+P 0 Q 1 C 0 S 1
+P 1 Q 0 C 0 S 1
+P 1 Q 1 C 1 S 0
+P 0 Q 0 Cin 0 Cout 0 S 0
+P 0 Q 0 Cin 1 Cout 0 S 1
+P 0 Q 1 Cin 0 Cout 0 S 0
+P 0 Q 1 Cin 1 Cout 1 S 1
+P 1 Q 0 Cin 0 Cout 0 S 1
+P 1 Q 0 Cin 1 Cout 1 S 0
+P 1 Q 1 Cin 0 Cout 1 S 1
+P 1 Q 1 Cin 1 Cout 1 S 1
+p 0 q 0
+p 0 q 1
+
+			@@@@@@@ GRADE @@@@@@@
+
+1. (10 points)
+    (a) Existence of the directory "/home/user??/hw4"
+    (b) Inside hw4: adder.h, adder.c, main.c, myAdd.c, and readMe.txt
+    (c) Other files are allowed
+2. (20 points) adder.c
+    (a) Adherence to the style guidelines
+    (b) Sensible variable names, comments, etc.
+    (c) icc -Wall -c adder.c gives no warnings or errors
+3. (10 points) main.c
+    (a) Comments at top of file
+    (b) icc -Wall -c main.c gives no warnings or errors
+4. (40 points) myAdd.c
+    (a) Adherence to the style guidelines
+    (b) Sensible variable names, comments, etc.
+    (c) icc -Wall adder.c main.c myAdd.c -o adder gives no warnings or errors
+    (d) ./adder produces correct output
+5. (20 points) readMe.txt
+    (a) Pseudo code
+    (b) Discussion of difficulty, approach, and lessons
+
+  10/10 +  10/20 +  10/10 +  10/40 +  10/20 =
+                                    9/100
+
+OVERDUE!!! (-41)
+No proper psudo code.
+Wrong myAdd and adder output.
